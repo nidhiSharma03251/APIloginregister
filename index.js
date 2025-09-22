@@ -1,10 +1,7 @@
 const express = require("express");
 const app = express();
-//const methodOverride = require("method-override");
-//const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-// const { listingSchema } = require("./schema.js");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");

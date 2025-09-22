@@ -38,7 +38,7 @@ router.get("/logout", (req, res, next) => {
     req.logout(err => {
         if (err) return next(err);
         req.flash("success", "Logged out successfully!");
-        res.redirect("/login");
+        res.redirect("/home");
     });
 });
 
@@ -93,18 +93,31 @@ router.post("/reset/:token", wrapAsync(async (req, res) => {
         resetPasswordToken: req.params.token,
         resetPasswordExpires: { $gt: Date.now() }
     });
+
     if (!user) {
         req.flash("error", "Token invalid or expired.");
         return res.redirect("/forgotPass");
     }
 
-    await user.setPassword(req.body.password);
+    user.setPassword(req.body.password, async function(err) {
+    if (err) {
+        req.flash("error", "Error resetting password.");
+        return res.redirect("/forgotPass");
+    }
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
-    await user.save();
+    await user.save(); 
+    req.login(user, function(err) {
+        if (err) {
+            req.flash("success", "Password updated! Please log in.");
+            return res.redirect("/login");
+        }
+        req.flash("success", "Password updated! You are now logged in.");
+        res.redirect("/home");
+    });
+});
 
-    req.flash("success", "Password updated. Please log in.");
-    res.redirect("/login");
 }));
+
 
 module.exports = router;
