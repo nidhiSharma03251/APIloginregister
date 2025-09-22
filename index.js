@@ -9,7 +9,8 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const User = require("./models/user.js")
+const User = require("./models/user.js");
+require("dotenv").config();
 
 const path = require("path");
 app.set("views", path.join(__dirname, "/views"));
@@ -42,16 +43,15 @@ app.get("/", (req, res) => {
 });
 
 const sessionOptions = {
-  secret: "mysupersecretcode",
+  secret: process.env.SESSION_SECRET, // read from .env
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    expires: Date.now() + 1000 * 60 * 60 * 24, // 1 day
-    maxAge: 1000 * 60 * 60 * 24
+    expires: Date.now() + 1000*60*60*24, // 1 day
+    maxAge: 1000*60*60*24
   }
 };
-
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -85,6 +85,9 @@ app.use("/", userRouter);
 // app.all(/.*/ , (req,res,next) =>{
 //   next(new ExpressError(404, "Page not found!"));
 // });
+
+
+
 
 
 app.use((err,req,res,next) =>{

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Internship Home page</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
@@ -10,29 +10,29 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-</head>
-<body class="bg-light">
+  </head>
+  <body>
+    <div
+      class="container mt-5 col-6 offset-3 border border-6 border-primary bg-light p-4"
+      style="background-color: #d4d485"
+    >
+      <% if (success && success.length > 0) { %>
+      <div class="alert alert-success"><%= success[0] %></div>
+      <% } %> <% if (error && error.length > 0) { %>
+      <div class="alert alert-danger"><%= error[0] %></div>
+      <% } %>
 
-    <div class="container mt-5">
-        <!-- Flash Messages -->
-        <% if (success && success.length > 0) { %>
-            <div class="alert alert-success text-center">
-                <%= success[0] %>
-            </div>
-        <% } %>
+      <h2>Welcome to Get Internship app.</h2>
 
-        <% if (error && error.length > 0) { %>
-            <div class="alert alert-danger text-center">
-                <%= error[0] %>
-            </div>
-        <% } %>
+      <a href="/signup"
+        ><button class="btn btn-success mt-2">Sign-Up</button></a
+      >
+      <a href="/login"><button class="btn btn-success mt-2">Login</button></a>
     </div>
-    <h2>Welcome to Get Internship app. </h2>
-
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
-</body>
+  </body>
 </html>
